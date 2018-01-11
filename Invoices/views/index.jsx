@@ -4,7 +4,7 @@ import App from './App';
  
  
 ReactDOM.render(
-  <App url='http://localhost:3000/db'
+  <App url='https://schlachter.ca/invoices/db'
        pollInterval={2000} />,
   document.getElementById('root')
 );

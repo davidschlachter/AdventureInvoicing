@@ -41,3 +41,6 @@ Stuff that isn't quite finished:
   Start date should automatically be the
   date of last invoice + 1 if a previous
   invoice exists.
+
+
+Note: the url of the webapp must be specified in index.jsx
