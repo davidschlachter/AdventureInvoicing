@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-var db = mongojs('mongodb://localhost:27017/Invoices', ['clients']);
+
+var config = require('../config');
+
+var db = mongojs(config.opt.db, ['clients']);
 
 // Get All Clients
 router.get('/Clients', function(req, res, next){
