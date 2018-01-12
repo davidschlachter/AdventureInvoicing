@@ -107,26 +107,26 @@ export class ViewClient extends Component {
         accessor: 'summary',
         Header: () =>  {return <strong></strong>},
         maxWidth: 145,
-        Cell: this.renderEditablePayment
+        Cell: this.renderEventField
       },
       {
         accessor: 'startTime',
         Header: () =>  {return <strong>Started</strong>},
-        Cell: this.renderEditablePayment
+        Cell: this.renderEventField
       },
       {
         accessor: 'endTime',
         Header: () =>  {return <strong>Ended</strong>},
         maxWidth: 140,
         style: {textAlign: 'right'},
-        Cell: this.renderEditablePayment
+        Cell: this.renderEventField
       },
       {
         accessor: 'rate',
         Header: () =>  {return <strong>Rate</strong>},
         maxWidth: 140,
         style: {textAlign: 'right'},
-        Cell: this.renderEditablePayment
+        Cell: this.renderEventField
       },
       {
         Header: () => {return <button onClick={this.handleAddPayment} style={{float: 'right', height: 21}}><strong>Add Payment</strong></button>},
@@ -335,6 +335,44 @@ export class ViewClient extends Component {
         />
     );
   }
+
+
+  renderEventField(cellInfo) {
+    return (
+      <div
+        style={{ backgroundColor: "#fafafa" }}
+        contentEditable
+        suppressContentEditableWarning
+        onFocus={e => {
+          let value = (e.target.innerText || e.target.textContent);
+          if(cellInfo.column.id === "amount") {
+            value = value.replace('$', '').replace(/^\s+|\s+$/g, '').trim();
+            e.target.innerHTML = value;
+          }
+        }}
+        onBlur={e => {
+          //const client = this.state.client;
+          let value = (e.target.innerText || e.target.textContent).trim();
+          if(cellInfo.column.id === "amount") {
+            value = parseFloat(value.replace('$', '').replace(/^\s+|\s+$/g, '').trim());
+            e.target.innerHTML = this.moneyFormatter(value);
+          }
+          //client.pendingPayments[cellInfo.index][cellInfo.column.id] = value;
+          //this.setState({ client: client });
+
+          //this.saveClient();
+        }}
+        /*dangerouslySetInnerHTML={{
+          __html: cellInfo.column.id === "date" ? this.dateFormatter(this.state.client.pendingPayments[cellInfo.index][cellInfo.column.id]) 
+          : cellInfo.column.id === "amount" ? this.moneyFormatter(this.state.client.pendingPayments[cellInfo.index][cellInfo.column.id]) 
+          : this.state.client.pendingPayments[cellInfo.index][cellInfo.column.id]
+        }}*/
+        />
+    );
+  }
+
+
+
 
   dateFormatter(value) {
     const date = new Date(value);
