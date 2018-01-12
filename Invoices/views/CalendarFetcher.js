@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
+var config = require('../config');
+
 // Client ID and API key from the Developer Console
-var CLIENT_ID = '218430929984-dqj4gru9m5okct10at09estr2qummab1.apps.googleusercontent.com';
+var CLIENT_ID = config.opt.CLIENT_ID;
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -93,7 +95,7 @@ export function loadCalendarApi() {
        */
   function listUpcomingEvents() {
     window.gapi.client.calendar.events.list({
-      'calendarId': 'webmann.info_unje1oee30pugtfls45tk9i2s0@group.calendar.google.com',
+      'calendarId': config.opt.calendar_id,
       //'timeMax': (new Date()).toISOString(),
       //'timeMin': (new Date(new Date().getTime() - (60*60*24*7*1000))).toISOString(),
       'showDeleted': false,
@@ -137,7 +139,7 @@ export class Events extends Component {
 
   getEvents(emails, timeMin, timeMax) {
     window.gapi.client.calendar.events.list({
-      'calendarId': 'webmann.info_unje1oee30pugtfls45tk9i2s0@group.calendar.google.com',
+      'calendarId': config.opt.calendar_id,
       'timeMax': (timeMax || moment()).toISOString(),
       'timeMin': (timeMin || this.oneWeekAgo()).toISOString(),
       'showDeleted': false,
