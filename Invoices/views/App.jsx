@@ -73,8 +73,6 @@ class NavBar extends Component {
     return (
       <nav style={{textAlign: 'left'}}>
         <a href="#" data-value="manageClients" onClick={ this.handleClick } style={{textDecoration: "none", color: "#FFF"}}>Clients</a>
-        <a href="#" data-value="settings" onClick={ this.handleClick } style={{textDecoration: "none", color: "#FFF"}}>Settings</a>
-
         <button id="authorize-button" style={{display: "none", float: 'right'}}>Authorize</button>
         <button id="signout-button" style={{display: "none", float: 'right'}}>Sign Out</button>
       </nav>
