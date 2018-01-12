@@ -127,12 +127,6 @@ export class ViewClient extends Component {
         maxWidth: 140,
         style: {textAlign: 'right'},
         Cell: this.renderEventField
-      },
-      {
-        Header: () => {return <button onClick={this.handleAddPayment} style={{float: 'right', height: 21}}><strong>Add Payment</strong></button>},
-        Cell: (cellInfo) => {return <button onClick={this.handleDeletePayment} data-id={cellInfo.index} style={{float: 'right', width: 21, height: 21}}><strong data-id={cellInfo.index}>-</strong></button>},
-        maxWidth: 115,
-        resizable: false
       }
     ];
   }
