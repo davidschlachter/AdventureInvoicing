@@ -147,14 +147,17 @@ export class Events extends Component {
       'orderBy': 'startTime',
       'q': emails.join(' ')
     }).then((response) => {
+      const rate = 15.0
       let events = response.result.items.map((event) => {
+	var startTime = event.start.dateTime || event.start.date;
+	var endTime = event.end.dateTime || event.end.date;
         return {
           eventId: event.id,
           summary: event.summary,
-	  startDate: event.start.date,
-          startTime: event.start.dateTime || event.start.date,
-          endTime: event.end.dateTime || event.end.date,
-          rate: 15.0
+          startTime: startTime,
+          endTime: endTime,
+          rate: rate,
+          amount: ((moment(endTime).valueOf() - moment(startTime).valueOf()) / (1000*3600))*rate
         };
       })
       

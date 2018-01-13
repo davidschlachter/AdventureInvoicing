@@ -106,8 +106,7 @@ export class ViewClient extends Component {
     this._eventColumns = [
       {
         accessor: 'summary',
-        Header: () =>  {return <strong></strong>},
-        maxWidth: 145,
+        Header: () =>  {return <strong>Date</strong>},
         Cell: this.renderEventField
       },
       {
@@ -118,15 +117,18 @@ export class ViewClient extends Component {
       {
         accessor: 'endTime',
         Header: () =>  {return <strong>Ended</strong>},
-        maxWidth: 140,
         style: {textAlign: 'right'},
         Cell: this.renderEventField
       },
       {
         accessor: 'rate',
         Header: () =>  {return <strong>Rate</strong>},
-        maxWidth: 140,
         style: {textAlign: 'right'},
+        Cell: this.renderEventField
+      },
+      {
+	accessor: 'amount',
+        Header: () => {return <strong>Amount</strong>},
         Cell: this.renderEventField
       }
     ];
@@ -336,7 +338,7 @@ export class ViewClient extends Component {
       <div
         style={{ backgroundColor: "#fafafa" }}
         dangerouslySetInnerHTML={{
-		__html: (typeof this.state !== 'undefined' && typeof this.state.events !== 'undefined' && this.state.events.length > 0) ? this.state.events[cellInfo.index][cellInfo.column.id] : "Loading"
+		__html: cellInfo.column.id === "summary" ? this.dateFormatter(this.state.events[cellInfo.index].startTime) : (cellInfo.column.id === "startTime" || cellInfo.column.id === "endTime") ? this.timeFormatter(this.state.events[cellInfo.index][cellInfo.column.id]) : this.state.events[cellInfo.index][cellInfo.column.id]
         }}
         />
     );
@@ -357,6 +359,16 @@ export class ViewClient extends Component {
 
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
+
+timeFormatter(value) {
+    const date = new Date(value);
+
+    var hours = date.getHours();
+    var minutes = ('0'+date.getMinutes()).slice(-2);;
+
+    return hours + ':' + minutes;
+  }
+
 
   moneyFormatter(value) {
     return '$' + parseFloat(value).toFixed(2);
