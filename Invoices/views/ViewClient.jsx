@@ -338,7 +338,7 @@ export class ViewClient extends Component {
       <div
         style={{ backgroundColor: "#fafafa" }}
         dangerouslySetInnerHTML={{
-		__html: cellInfo.column.id === "summary" ? this.dateFormatter(this.state.events[cellInfo.index].startTime) : (cellInfo.column.id === "startTime" || cellInfo.column.id === "endTime") ? this.timeFormatter(this.state.events[cellInfo.index][cellInfo.column.id]) : this.state.events[cellInfo.index][cellInfo.column.id]
+		__html: cellInfo.column.id === "summary" ? this.dateFormatter(this.state.events[cellInfo.index].startTime) : (cellInfo.column.id === "startTime" || cellInfo.column.id === "endTime") ? this.timeFormatter(this.state.events[cellInfo.index][cellInfo.column.id]) : (cellInfo.column.id === "amount" || cellInfo.column.id === "rate") ? this.moneyFormatter(this.state.events[cellInfo.index][cellInfo.column.id]): this.state.events[cellInfo.index][cellInfo.column.id]
         }}
         />
     );
