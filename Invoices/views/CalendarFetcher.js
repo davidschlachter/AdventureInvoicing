@@ -191,13 +191,39 @@ export class Events extends Component {
     if(this.props.dontDisplay)
       return null;
     
-    if(this.state.events && this.state.events.length) 
-      return (<div>
+    if (this.state.events && this.state.events.length) {
+      var amountsTotal = 0.0;
+      var hoursTotal = 0.0;
+      return (
+      <table>
+        <body>
+          <tr>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>Time (h)</th>
+            <th>Amount</th>
+          </tr>
           {this.state.events.map((event) => {
-            return <p key={event.eventId}>{event.summary} ({event.startTime} to {event.endTime})</p>;
+            var startDate = new moment(event.startTime);
+            var startTime = startDate.format('HH:mm');
+            if (startTime.charAt(0) === '0') startTime = ' ' + startTime.substr(1, startTime.length-1);
+            var endTime = new moment(event.endTime).format('HH:mm');
+            if (endTime.charAt(0) === '0') endTime = ' ' + endTime.substr(1, endTime.length-1);
+            var rate = "$" + event.rate.toFixed(2);
+            var amount = "";
+            if (event.amount < 1000 && event.amount >= 100) amount = "$" + event.amount.toFixed(2);
+            else if (event.amount > 0 && event.amount < 100) amount = "$ " + event.amount.toFixed(2);
+            amount = amount.replace('.00', '   ');
+            var time = (event.amount / event.rate).toFixed(2);
+            time = time.replace('.00', '   ');
+            amountsTotal = amountsTotal + event.amount;
+            hoursTotal = hoursTotal + (event.amount / event.rate);
+            return <tr key={event.eventId}><td>{startDate.format('ddd MMM DD')}</td><td>{startTime} – {endTime}</td><td>{time}</td><td>{amount}</td></tr>
           })}
-        </div>);
-    else 
-      return <p>No events found in the last week</p>;
+        <tr><td></td><td>Total:</td><td>{hoursTotal.toFixed(2)}</td><td>{'$' + amountsTotal.toFixed(2)}</td></tr>
+        </body>
+      </table>
+      );
+    } else return <p>No events found in the last week</p>;
   }
 }

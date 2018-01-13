@@ -41,7 +41,6 @@ export class ViewClient extends Component {
 
     this.renderEditableExpense = this.renderEditableExpense.bind(this);
     this.renderEditablePayment = this.renderEditablePayment.bind(this);
-    this.renderEventField = this.renderEventField.bind(this);
     this.handleAddExpense = this.handleAddExpense.bind(this);
     this.handleAddPayment = this.handleAddPayment.bind(this);
     this.handleDeleteExpense = this.handleDeleteExpense.bind(this);
@@ -103,35 +102,6 @@ export class ViewClient extends Component {
       }
     ];
 
-    this._eventColumns = [
-      {
-        accessor: 'summary',
-        Header: () =>  {return <strong>Date</strong>},
-        Cell: this.renderEventField
-      },
-      {
-        accessor: 'startTime',
-        Header: () =>  {return <strong>Started</strong>},
-        Cell: this.renderEventField
-      },
-      {
-        accessor: 'endTime',
-        Header: () =>  {return <strong>Ended</strong>},
-        style: {textAlign: 'right'},
-        Cell: this.renderEventField
-      },
-      {
-        accessor: 'rate',
-        Header: () =>  {return <strong>Rate</strong>},
-        style: {textAlign: 'right'},
-        Cell: this.renderEventField
-      },
-      {
-	accessor: 'amount',
-        Header: () => {return <strong>Amount</strong>},
-        Cell: this.renderEventField
-      }
-    ];
   }
 
   getClient(clientId) {
@@ -333,16 +303,6 @@ export class ViewClient extends Component {
     );
   }
 
-  renderEventField(cellInfo) {
-    return (
-      <div
-        style={{ backgroundColor: "#fafafa" }}
-        dangerouslySetInnerHTML={{
-        __html: cellInfo.column.id === "summary" ? this.dateFormatter(this.state.events[cellInfo.index].startTime) : (cellInfo.column.id === "startTime" || cellInfo.column.id === "endTime") ? this.timeFormatter(this.state.events[cellInfo.index][cellInfo.column.id]) : (cellInfo.column.id === "amount" || cellInfo.column.id === "rate") ? this.moneyFormatter(this.state.events[cellInfo.index][cellInfo.column.id]): this.state.events[cellInfo.index][cellInfo.column.id]
-        }}
-        />
-    );
-  }
 
   dateFormatter(value) {
     const date = new Date(value);
@@ -447,14 +407,10 @@ timeFormatter(value) {
             highlightDates={[moment()]} />
         </h3>
         <Events emails={client.emails}
-          dontDisplay={true}
+          dontDisplay={false}
           onEventsLoaded={this.handleEventsLoaded}
           timeMin={this.state.fromDate}
           timeMax={this.state.toDate} />
-        <EditableTable
-          columns={this._eventColumns}
-          rows={this.state.events}
-          />
         <p>
           Last invoice was {lastInvoice}
         </p>
