@@ -151,9 +151,10 @@ export class Events extends Component {
         return {
           eventId: event.id,
           summary: event.summary,
+	  startDate: event.start.date,
           startTime: event.start.dateTime || event.start.date,
           endTime: event.end.dateTime || event.end.date,
-          rate: 12.50
+          rate: 15.0
         };
       })
       
