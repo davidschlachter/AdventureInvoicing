@@ -54,11 +54,7 @@ table, tr, td, th {
   font-family: monospace, monospace;
 }
 
-th {
-  text-align: left;
-}
-
-td {
+td, th {
   padding: 0.3em;
   padding-left: 0.5em;
   padding-right: 0.5em;
