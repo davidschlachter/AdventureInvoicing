@@ -338,7 +338,7 @@ export class ViewClient extends Component {
       <div
         style={{ backgroundColor: "#fafafa" }}
         dangerouslySetInnerHTML={{
-		__html: cellInfo.column.id === "summary" ? this.dateFormatter(this.state.events[cellInfo.index].startTime) : (cellInfo.column.id === "startTime" || cellInfo.column.id === "endTime") ? this.timeFormatter(this.state.events[cellInfo.index][cellInfo.column.id]) : (cellInfo.column.id === "amount" || cellInfo.column.id === "rate") ? this.moneyFormatter(this.state.events[cellInfo.index][cellInfo.column.id]): this.state.events[cellInfo.index][cellInfo.column.id]
+        __html: cellInfo.column.id === "summary" ? this.dateFormatter(this.state.events[cellInfo.index].startTime) : (cellInfo.column.id === "startTime" || cellInfo.column.id === "endTime") ? this.timeFormatter(this.state.events[cellInfo.index][cellInfo.column.id]) : (cellInfo.column.id === "amount" || cellInfo.column.id === "rate") ? this.moneyFormatter(this.state.events[cellInfo.index][cellInfo.column.id]): this.state.events[cellInfo.index][cellInfo.column.id]
         }}
         />
     );
@@ -395,11 +395,14 @@ timeFormatter(value) {
             <a href="#" onClick={() => {this.setState({editingEmails: true})}}>Edit</a>
           </p>
         );
-    
+   
+    let eventsBalance = (typeof this.state.events === 'undefined') ? 0 : this.state.events.length === 0 ? 0 : this.state.events.reduce(function(a, b) {return a + b.amount;}, 0); 
+
     var pendingBalance = (
       client.currentBalance +
       (client.pendingPayments.reduce((a, b) => {return {amount: a.amount + b.amount}}, {amount: 0.0})).amount -
-      (client.pendingExpenses.reduce((a, b) => {return {amount: a.amount + b.amount}}, {amount: 0.0})).amount
+      (client.pendingExpenses.reduce((a, b) => {return {amount: a.amount + b.amount}}, {amount: 0.0})).amount -
+      eventsBalance
     ).toFixed(2);
 
     return (
