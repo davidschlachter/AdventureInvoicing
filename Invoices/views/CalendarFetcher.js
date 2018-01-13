@@ -196,13 +196,15 @@ export class Events extends Component {
       var hoursTotal = 0.0;
       return (
       <table>
-        <body>
+        <thead>
           <tr>
             <th>Date</th>
             <th>Hours</th>
             <th>Time (h)</th>
             <th>Amount</th>
           </tr>
+        </thead>
+        <tbody>
           {this.state.events.map((event) => {
             var startDate = new moment(event.startTime);
             var startTime = startDate.format('HH:mm');
@@ -220,8 +222,10 @@ export class Events extends Component {
             hoursTotal = hoursTotal + (event.amount / event.rate);
             return <tr key={event.eventId}><td>{startDate.format('ddd MMM DD')}</td><td>{startTime} – {endTime}</td><td>{time}</td><td>{amount}</td></tr>
           })}
+        </tbody>
+        <tfoot>
         <tr><td></td><td>Total:</td><td>{hoursTotal.toFixed(2)}</td><td>{'$' + amountsTotal.toFixed(2)}</td></tr>
-        </body>
+        </tfoot>
       </table>
       );
     } else return <p>No events found in the last week</p>;

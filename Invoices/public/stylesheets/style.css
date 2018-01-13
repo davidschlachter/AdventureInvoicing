@@ -50,6 +50,10 @@ nav a {
   to { transform: rotate(360deg); }
 }
 
+table {
+  border-collapse: collapse;
+}
+
 table, tr, td, th {
   font-family: monospace, monospace;
 }
@@ -65,4 +69,14 @@ td, th {
 /* For the last column (dollars) */
 table td + td + td + td {
   text-align: right;
+}
+
+/* Add line after headings */
+table thead tr {
+  border-bottom: 3px double black;
+}
+
+/* Add line before total */
+table tfoot tr {
+  border-top: 1px solid black;
 }
