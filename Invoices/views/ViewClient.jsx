@@ -41,6 +41,7 @@ export class ViewClient extends Component {
 
     this.renderEditableExpense = this.renderEditableExpense.bind(this);
     this.renderEditablePayment = this.renderEditablePayment.bind(this);
+    this.renderEventField = this.renderEventField.bind(this);
     this.handleAddExpense = this.handleAddExpense.bind(this);
     this.handleAddPayment = this.handleAddPayment.bind(this);
     this.handleDeleteExpense = this.handleDeleteExpense.bind(this);
@@ -330,43 +331,16 @@ export class ViewClient extends Component {
     );
   }
 
-
   renderEventField(cellInfo) {
     return (
       <div
         style={{ backgroundColor: "#fafafa" }}
-        contentEditable
-        suppressContentEditableWarning
-        onFocus={e => {
-          let value = (e.target.innerText || e.target.textContent);
-          if(cellInfo.column.id === "amount") {
-            value = value.replace('$', '').replace(/^\s+|\s+$/g, '').trim();
-            e.target.innerHTML = value;
-          }
+        dangerouslySetInnerHTML={{
+		__html: (typeof this.state !== 'undefined' && typeof this.state.events !== 'undefined' && this.state.events.length > 0) ? this.state.events[cellInfo.index][cellInfo.column.id] : "Loading"
         }}
-        onBlur={e => {
-          //const client = this.state.client;
-          let value = (e.target.innerText || e.target.textContent).trim();
-          if(cellInfo.column.id === "amount") {
-            value = parseFloat(value.replace('$', '').replace(/^\s+|\s+$/g, '').trim());
-            e.target.innerHTML = this.moneyFormatter(value);
-          }
-          //client.pendingPayments[cellInfo.index][cellInfo.column.id] = value;
-          //this.setState({ client: client });
-
-          //this.saveClient();
-        }}
-        /*dangerouslySetInnerHTML={{
-          __html: cellInfo.column.id === "date" ? this.dateFormatter(this.state.client.pendingPayments[cellInfo.index][cellInfo.column.id]) 
-          : cellInfo.column.id === "amount" ? this.moneyFormatter(this.state.client.pendingPayments[cellInfo.index][cellInfo.column.id]) 
-          : this.state.client.pendingPayments[cellInfo.index][cellInfo.column.id]
-        }}*/
         />
     );
   }
-
-
-
 
   dateFormatter(value) {
     const date = new Date(value);
