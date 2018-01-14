@@ -195,16 +195,11 @@ export class Events extends Component {
       var amountsTotal = 0.0;
       var hoursTotal = 0.0;
       return (
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Hours</th>
-            <th>Time (h)</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div>
+      <h3>Table for emailing</h3>
+        <div className="summary">
+          <span className="summaryHead">Date         Hours           Time (h)  Amount</span><br/>
+          <span>--------------------------------------------------<br/></span>
           {this.state.events.map((event) => {
             var startDate = new moment(event.startTime);
             var startTime = startDate.format('HH:mm');
@@ -220,13 +215,35 @@ export class Events extends Component {
             time = time.replace('.00', '   ');
             amountsTotal = amountsTotal + event.amount;
             hoursTotal = hoursTotal + (event.amount / event.rate);
-            return <tr key={event.eventId}><td>{startDate.format('ddd MMM DD')}</td><td>{startTime} – {endTime}</td><td>{time}</td><td>{amount}</td></tr>
+            return <span key={event.eventId}>{startDate.format('ddd MMM DD')}   {startTime} – {endTime}   {time}       {amount}<br/></span>
+          })}
+          <span>--------------------------------------------------<br/></span>
+        <span>                     Total: {hoursTotal.toFixed(2)}       {'$' + amountsTotal.toFixed(2)}</span><br/>
+        </div>
+      <h3>Raw data</h3>
+      <p>This table can be copied into TextMate, then copied from there and pasted into Excel</p>
+      <table>
+        <thead><tr>
+          <th>Date</th>
+          <th>Start time</th>
+          <th>End time</th>
+          <th>Time (h)</th>
+          <th>Rate</th>
+          <th>Amount</th>
+        </tr></thead>
+        <tbody>
+           {this.state.events.map((event) => {
+            var startDate = new moment(event.startTime);
+            var startTime = startDate.format('HH:mm');
+            var endTime = new moment(event.endTime).format('HH:mm');
+            var rate = event.rate;
+            var amount = event.amount;
+            var time = (event.amount / event.rate);
+            return <tr key={event.eventId}><td>{startDate.format('YYYY-MM-DD')}</td><td>{startTime}</td><td>{endTime}</td><td>{time}</td><td>{rate}</td><td>{amount}</td></tr>
           })}
         </tbody>
-        <tfoot>
-        <tr><td></td><td>Total:</td><td>{hoursTotal.toFixed(2)}</td><td>{'$' + amountsTotal.toFixed(2)}</td></tr>
-        </tfoot>
       </table>
+      </div>
       );
     } else return <p>No events found in the last week</p>;
   }

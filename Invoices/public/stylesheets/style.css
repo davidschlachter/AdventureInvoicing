@@ -80,3 +80,14 @@ table thead tr {
 table tfoot tr {
   border-top: 1px solid black;
 }
+
+/* For the text-only childcare summary */
+.summary {
+  font-family: monospace, monospace;
+  white-space: pre;
+  text-align: left;
+}
+
+.summaryHead {
+  font-weight: bold;
+}
