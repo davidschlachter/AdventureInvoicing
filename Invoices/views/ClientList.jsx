@@ -49,8 +49,8 @@ export class ClientList extends Component {
             return (
                 <p className="panel panel-primary" key={ client._id } style={{padding: "1em 0", margin: 0, maxWidth: "40em", borderTop: borderTop}}>
                     <a href="#" style={{float: "right", marginLeft: "1em"}} data-id={client._id} data-value="delete" onClick={this.deleteClient}>Delete</a>
-                    <a href="#" data-id={client._id} data-value="view" onClick={this.viewClient}>{client.name}</a> ({client.emails.join(', ')}) <br />
-                    Current balance is ${(client.currentBalance || 0).toFixed(2)}, last invoice was {lastInvoice}
+                    <a href="#" data-id={client._id} data-value="view" onClick={this.viewClient}>{client.name}</a> ({client.emails.join(', ')}) {/*<br />
+                    Current balance is ${(client.currentBalance || 0).toFixed(2)}, last invoice was {lastInvoice}*/}
                 </p>
             )
         })

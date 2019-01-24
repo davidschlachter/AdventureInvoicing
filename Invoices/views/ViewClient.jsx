@@ -370,7 +370,7 @@ timeFormatter(value) {
         <a href="#" style={{float: "right", marginRight: "1em"}} data-id={client._id} data-value="delete" onClick={this.deleteClient}>Delete</a>
         <h2>{client.name}</h2>
         { displayEmails }
-        <p>
+        {/*<p>
           Current balance: ${(client.currentBalance || 0).toFixed(2)}, pending balance: ${pendingBalance}
         </p>
         <h3>Pending expenses</h3>
@@ -386,7 +386,7 @@ timeFormatter(value) {
             columns={this._paymentColumns} 
             rows={client.pendingPayments} 
             handleAdd={this.handleAddPayment} />
-        </div>
+        </div>*/}
         <h3>Events between 
           <DatePicker
             selected={this.state.fromDate}
@@ -411,10 +411,10 @@ timeFormatter(value) {
           onEventsLoaded={this.handleEventsLoaded}
           timeMin={this.state.fromDate}
           timeMax={this.state.toDate} />
-        <p>
+        {/*<p>
           Last invoice was {lastInvoice}
         </p>
-        <pre>{ JSON.stringify(client.invoices, null, '\t') }</pre>
+        <pre>{ JSON.stringify(client.invoices, null, '\t') }</pre>*/}
       </div>
     );
   }
