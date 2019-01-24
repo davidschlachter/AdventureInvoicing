@@ -137,6 +137,12 @@ export class Events extends Component {
     this.getEvents = this.getEvents.bind(this);
   }
 
+  showDetails(event) {
+    console.log("Clicked show raw data");
+    document.getElementById("rawData").style.display = "block";
+    return false;
+  }
+
   getEvents(emails, timeMin, timeMax) {
     window.gapi.client.calendar.events.list({
       'calendarId': config.opt.calendar_id,
@@ -196,7 +202,7 @@ export class Events extends Component {
       var hoursTotal = 0.0;
       return (
       <div>
-      <h3>Current rate: ${this.state.events[0].rate.toFixed(2)} </h3>
+      <p>Current rate: ${this.state.events[0].rate.toFixed(2)} / hour</p>
       <h3>Table for emailing</h3>
         <div className="summary">
           <span className="summaryHead">Date         Hours           Time (h)  Amount</span><br/>
@@ -221,7 +227,8 @@ export class Events extends Component {
           <span>--------------------------------------------------<br/></span>
         <span>                     Total: {hoursTotal.toFixed(2)}       {'$' + amountsTotal.toFixed(2)}</span><br/>
         </div>
-      <div className="rawData">
+      <div className="showrawData"><p><a href="#" onClick={this.showDetails.bind(this)}>Show raw data</a></p></div>
+      <div id="rawData">
       <h4>Raw data</h4>
       <p>This table can be copied into TextMate, then copied from there and pasted into Excel</p>
       <table>
