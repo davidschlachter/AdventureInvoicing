@@ -147,7 +147,7 @@ export class Events extends Component {
       'orderBy': 'startTime',
       'q': emails.join(' ')
     }).then((response) => {
-      const rate = 15.0
+      const rate = 16.0
       let events = response.result.items.map((event) => {
 	var startTime = event.start.dateTime || event.start.date;
 	var endTime = event.end.dateTime || event.end.date;
@@ -196,6 +196,7 @@ export class Events extends Component {
       var hoursTotal = 0.0;
       return (
       <div>
+      <h3>Current rate: ${this.state.events[0].rate.toFixed(2)} </h3>
       <h3>Table for emailing</h3>
         <div className="summary">
           <span className="summaryHead">Date         Hours           Time (h)  Amount</span><br/>
