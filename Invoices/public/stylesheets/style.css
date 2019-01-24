@@ -91,3 +91,11 @@ table tfoot tr {
 .summaryHead {
   font-weight: bold;
 }
+
+/* For the raw data table */
+.rawData {
+  color: #e5e5e5;
+}
+.rawData table thead tr {
+  border-top: 1px solid #e5e5e5;
+}

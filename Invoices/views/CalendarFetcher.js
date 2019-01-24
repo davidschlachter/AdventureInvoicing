@@ -221,7 +221,8 @@ export class Events extends Component {
           <span>--------------------------------------------------<br/></span>
         <span>                     Total: {hoursTotal.toFixed(2)}       {'$' + amountsTotal.toFixed(2)}</span><br/>
         </div>
-      <h3>Raw data</h3>
+      <div className="rawData">
+      <h4>Raw data</h4>
       <p>This table can be copied into TextMate, then copied from there and pasted into Excel</p>
       <table>
         <thead><tr>
@@ -244,6 +245,7 @@ export class Events extends Component {
           })}
         </tbody>
       </table>
+      </div>
       </div>
       );
     } else return <p>No events found in the last week</p>;
